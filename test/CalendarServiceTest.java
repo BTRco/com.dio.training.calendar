@@ -31,6 +31,12 @@ public class CalendarServiceTest {
                 .title("  ss")
                 .build());
 
+        /** проверяет порядок вызова. Если сначала вызовится ремув, то будет ордер эксепшн
+        InOrder order = new InOrderImpl(Arrays.<Object>asList(dataStore));
+        order.verify(dataStore).addNewEventToCalendar(newCreatedEvent);
+        order.verify(dataStore).removeEventFromCalendar(id);
+         */
+
         Mockito.verify(dataStore).addNewEventToCalendar(newCreatedEvent);
     }
 }
