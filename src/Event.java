@@ -99,7 +99,7 @@ public class Event {
             this.description = "Default description";
             this.startDateTime = LocalDateTime.of(1970, 01, 01, 00, 00);
             this.attenders = new LinkedList<>();
-            this.id = UUID.randomUUID();
+            this.id = UUID.fromString("00000000-0000-0000-0000-000000000000");
             this.title = "Default title";
         }
 

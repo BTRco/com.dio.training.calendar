@@ -1,3 +1,6 @@
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +9,11 @@ import java.util.UUID;
 public class Main {
 
     public static void main(String[] args) {
+
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        CalendarServiceImpl service = (CalendarServiceImpl) context.getBean("calendarService");
+
+
 
         List<Person> attenders = new ArrayList<>();
         List<Person> attend = new ArrayList<>();
@@ -37,14 +45,16 @@ public class Main {
 
         attend.add(person2);
 
-        CalendarService calendarService = new CalendarService();
 
-        Event event = calendarService.createNewEvent("First event very very big description", LocalDateTime.of(2014, 07, 21, 18, 00), attenders, UUID.randomUUID(), "First event");
-        Event event1 = calendarService.createNewEvent("Second event very very big description", LocalDateTime.of(2014, 07, 21, 18, 00), attenders, UUID.randomUUID(), "Second event");
 
-        calendarService.addNewEventToCalendar(event);
-        calendarService.addNewEventToCalendar(event1);
-        Event ev = calendarService.findEventByTitle(event1.getTitle());
+        Event event = service.createNewEvent("First event very very big description", LocalDateTime.of(2014, 07, 21, 18, 00), attenders, UUID.randomUUID(), "First event");
+        Event event1 = service.createNewEvent("Second event very very big description", LocalDateTime.of(2014, 07, 21, 18, 00), attenders, UUID.randomUUID(), "Second event");
+
+        service.addNewEventToCalendar(event);
+
+        service.addNewEventToCalendar(event);
+        service.addNewEventToCalendar(event1);
+        Event ev = service.findEventByTitle(event1.getTitle());
         System.out.println(ev.toString());
 
 
