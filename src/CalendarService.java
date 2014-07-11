@@ -15,6 +15,7 @@ import java.util.UUID;
 public interface CalendarService {
 
     Event createNewEvent(String description, LocalDateTime startDateTime, List<Person> attenders, UUID id, String title);
+    Event createNewEvent();
     Event findEventByTitle(String title);
     Event findEventById(UUID id);
     void addNewEventToCalendar(Event newEventToAdd);

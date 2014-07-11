@@ -5,8 +5,17 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
+/**
+ * Тесты для методов класса @DataStorageImpl
+ */
+
 public class DataStorageImplTest {
 
+
+    /**
+     * Тест для метода publish - добавление нового события в хранилище данных.
+     * @throws Exception
+     */
     @Test
     public void testPublish() throws Exception{
 
@@ -27,6 +36,11 @@ public class DataStorageImplTest {
         Assert.assertEquals(expectedDataStorage, dataStorage);
     }
 
+
+    /**
+     * Тест для метода remove - удаление события из хранилища данных(поиск по параметру title).
+     * @throws Exception
+     */
     @Test
     public void testRemove() throws Exception{
 
@@ -47,6 +61,11 @@ public class DataStorageImplTest {
         Assert.assertEquals(expectedDataStorage, dataStorage);
     }
 
+
+    /**
+     * Тест для метода getEventById - поиск события в хранилище данных по параметру id.
+     * @throws Exception
+     */
     @Test
     public void testGetEventById() throws Exception{
 
@@ -65,6 +84,10 @@ public class DataStorageImplTest {
         Assert.assertEquals(expectedEvent, findedEvent);
     }
 
+    /**
+     * Тест для метода getEventByTitle - поиск события в хранилище данных по параметру title.
+     * @throws Exception
+     */
     @Test
     public void testGetEventByTitle() throws Exception{
 
