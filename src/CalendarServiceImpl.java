@@ -9,9 +9,9 @@ import java.util.UUID;
 
 public class CalendarServiceImpl implements CalendarService {
 
-    private final DataStorageImpl dataStorageImpl;
+    private final DataStorage dataStorageImpl;
 
-    public CalendarServiceImpl(DataStorageImpl dataStorageImpl) {
+    public CalendarServiceImpl(DataStorage dataStorageImpl) {
         this.dataStorageImpl = dataStorageImpl;
     }
 
