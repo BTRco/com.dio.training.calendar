@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -5,6 +6,7 @@ import java.util.UUID;
 public class DataStorageImpl implements DataStorage {
     private final Map<UUID, Event> list = new HashMap<>();
     private final Map<String, UUID> titleUuidList = new HashMap<>();
+    private final Map<LocalDateTime, UUID> timeUUIDList = new HashMap<>();
 
     public DataStorageImpl(){
 
@@ -13,13 +15,14 @@ public class DataStorageImpl implements DataStorage {
     public DataStorageImpl(Event event){
         list.put(event.getId(), event);
         titleUuidList.put(event.getTitle(), event.getId());
+        timeUUIDList.put(event.getStartDateTime(), event.getId());
     }
 
     @Override
     public void publish(Event event) {
         list.put(event.getId(), event);
         titleUuidList.put(event.getTitle(), event.getId());
-
+        timeUUIDList.put(event.getStartDateTime(), event.getId());
     }
 
     @Override
@@ -38,6 +41,11 @@ public class DataStorageImpl implements DataStorage {
     @Override
     public Event getEventByTitle(String title){
         return list.get(titleUuidList.get(title));
+    }
+
+    @Override
+    public Event getEventByTime(LocalDateTime localDateTime){
+        return list.get(timeUUIDList.get(localDateTime));
     }
 
     @Override

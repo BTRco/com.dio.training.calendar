@@ -70,13 +70,14 @@ public class CalendarServiceImpl implements CalendarService {
      * @return созданное событие
      */
 
-    public Event createNewEvent(String description, LocalDateTime startDateTime, List<Person> attenders, UUID id, String title){
+    public Event createNewEvent(String description, LocalDateTime startDateTime, List<Person> attenders, UUID id, String title, boolean isAllDayEvent){
         Event newCreatedEvent = new Event.Builder()
                 .description(description)
                 .startDateTime(startDateTime)
                 .attenders(attenders)
                 .id(id)
                 .title(title)
+                .isAllDayEvent(isAllDayEvent)
                 .build();
 
         addNewEventToCalendar(newCreatedEvent);
@@ -93,4 +94,40 @@ public class CalendarServiceImpl implements CalendarService {
         return newCreatedEvent;
     }
 
+    public Event findEventByTimeForAttender(LocalDateTime time, Person attender){
+        Event event = dataStorageImpl.getEventByTime(time);
+        for (int i = 0; i < event.getAttenders().size(); i++){
+
+            if (event.getAttenders().get(i).equals(attender)){
+                if (event.isAllDayEvent()){
+                    return null;
+                }
+                return event;
+            }
+        }
+        return null;
+    }
+
+    public boolean isAttenderFreeInThisTime(LocalDateTime time, Person atender){
+        if (findEventByTimeForAttender(time, atender) == null){
+            return false;
+        }
+        return true;
+    }
+
+    /*public LocalDateTime findTimeForEvent(LocalDateTime time, Person atender){
+        if (isAttenderFreeInThisTime(time, atender)){
+            return time;
+        } else if (ti){
+
+        }
+        return null;
+    }*/
+
 }
+
+/**TODO Поиск событий на определенное время для участника!
+Событие на весь день!
+Проверка свободен ли адресант в определенное время дня!
+Extra: Поиск подходящего времени для события (интервал 15 минут)
+ */

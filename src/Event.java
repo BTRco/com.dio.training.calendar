@@ -11,12 +11,27 @@ public class Event {
     private final UUID id;
     private final String title;
 
+    @Override
+    public String toString() {
+        return "Event{" +
+                "description='" + description + '\'' +
+                ", startDateTime=" + startDateTime +
+                ", attenders=" + attenders +
+                ", id=" + id +
+                ", title='" + title + '\'' +
+                ", isAllDayEvent=" + isAllDayEvent +
+                '}';
+    }
+
+    private final boolean isAllDayEvent;
+
     private Event(Builder builder) {
         this.description = builder.description;
         this.startDateTime = builder.startDateTime;
         this.attenders = builder.attenders;
         this.id = builder.id;
         this.title = builder.title;
+        this.isAllDayEvent = builder.isAllDayEvent;
     }
 
     public String getDescription() {
@@ -39,15 +54,8 @@ public class Event {
         return title;
     }
 
-    @Override
-    public String toString() {
-        return "Event{" +
-                "description='" + description + '\'' +
-                ", startDateTime=" + startDateTime +
-                ", attenders=" + attenders +
-                ", id=" + id +
-                ", title='" + title + '\'' +
-                '}';
+    public boolean isAllDayEvent() {
+        return isAllDayEvent;
     }
 
     @Override
@@ -90,6 +98,7 @@ public class Event {
         private List<Person> attenders;   //Person do
         private UUID id;
         private String title;
+        private boolean isAllDayEvent;
 
 
         /**
@@ -101,6 +110,7 @@ public class Event {
             this.attenders = new LinkedList<>();
             this.id = UUID.fromString("00000000-0000-0000-0000-000000000000");
             this.title = "Default title";
+            this.isAllDayEvent = false;
         }
 
         /**
@@ -113,6 +123,7 @@ public class Event {
             this.attenders = original.attenders;
             this.id = original.id;
             this.title = original.title;
+            this.isAllDayEvent = original.isAllDayEvent;
         }
 
         /**
@@ -170,6 +181,11 @@ public class Event {
         public Builder title(String title){
             if (title == null) throw new NullPointerException("Null-reference");
             this.title = title;
+            return this;
+        }
+
+        public Builder isAllDayEvent(boolean isAllDayEvent){
+            this.isAllDayEvent = isAllDayEvent;
             return this;
         }
 

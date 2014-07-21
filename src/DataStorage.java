@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public interface DataStorage {
@@ -9,5 +10,7 @@ public interface DataStorage {
     Event getEventById(UUID id);
 
     public Event getEventByTitle(String title);
+
+    public Event getEventByTime(LocalDateTime localDateTime);
 
 }

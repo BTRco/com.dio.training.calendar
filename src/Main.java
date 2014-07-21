@@ -13,8 +13,6 @@ public class Main {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         CalendarServiceImpl service = (CalendarServiceImpl) context.getBean("calendarService");
 
-
-
         List<Person> attenders = new ArrayList<>();
         List<Person> attend = new ArrayList<>();
 
@@ -27,14 +25,14 @@ public class Main {
 
         Person person2 = new Person.Builder()
                 .personName("Bogdan")
-                .personAddress("Kiv")
+                .personAddress("Kiiv")
                 .eMail("skobogdan@gmail.com")
                 .personAge(23)
                 .build();
 
         Person person3 = new Person.Builder()
                 .personName("Bogdan")
-                .personAddress("Kiv")
+                .personAddress("Kiev")
                 .eMail("skobogdan@gmail.com")
                 .personAge(23)
                 .build();
@@ -45,17 +43,20 @@ public class Main {
 
         attend.add(person2);
 
-
-
-        Event event = service.createNewEvent("First event very very big description", LocalDateTime.of(2014, 07, 21, 18, 00), attenders, UUID.randomUUID(), "First event");
-        Event event1 = service.createNewEvent("Second event very very big description", LocalDateTime.of(2014, 07, 21, 18, 00), attenders, UUID.randomUUID(), "Second event");
+        Event event = service.createNewEvent("First event very very big description", LocalDateTime.of(2014, 07, 21, 18, 00), attenders, UUID.randomUUID(), "First event", false);
+        Event event1 = service.createNewEvent("Second event very very big description", LocalDateTime.of(2014, 06, 21, 18, 00), attend, UUID.randomUUID(), "Second event", true);
 
         service.addNewEventToCalendar(event);
 
         service.addNewEventToCalendar(event);
         service.addNewEventToCalendar(event1);
-        Event ev = service.findEventByTitle(event1.getTitle());
-        System.out.println(ev.toString());
+        //Event ev = service.findEventByTitle(event1.getTitle());
+        //System.out.println(ev.toString());
+
+        System.out.println(event1);
+        System.out.println(service.findEventByTimeForAttender(LocalDateTime.of(2014, 06, 21, 18, 00), person1));
+        System.out.println(service.isAttenderFreeInThisTime(LocalDateTime.of(2014, 07, 21, 18, 00), person1));
+
 
 
     }
